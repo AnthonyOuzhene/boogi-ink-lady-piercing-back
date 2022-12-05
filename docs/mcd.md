@@ -2,7 +2,7 @@
 :
 :
 :
-COMMENT: comment_identifier, activity_name, title, project_name, rating, message, comment_date, realisation_date, user_id
+COMMENT: comment_identifier, activity_name, title, project_name, message, comment_date, realisation_date, user_id
 leave, 11 COMMENT, 0N USER
 POST: post_identifier, title, summary, content, featured_image, publication_date, author
 
@@ -34,6 +34,6 @@ MEDIA: media_identifier, main_picture, other_pictures, videos, activity_name
 :
 HOME: home_identifier, name, address, zip_code, home_img, phone_number, status
 sells, 11 PRODUCT, 0N HOME
-PRODUCT: product_identifier, name, picture, price, description, activity_name
+PRODUCT: product_identifier, name, picture, price, summary, description, activity_name
 :
 :
