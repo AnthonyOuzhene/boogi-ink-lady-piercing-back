@@ -78,50 +78,57 @@ class AppFixtures extends Fixture
         $home = new Home();
         $home->setName("Boogi\'ink & Lady Piercing");
         $home->setAddress("332 rue Louis Gillain");
-        $home->setZipCode("2710");
+        $home->setZipCode("27210");
         $home->setCity("Beuzeville");
         $home->setPhoneNumber("09.80.49.43.32");
-        $home->setHomeImg('https://scontent-cdg2-1.xx.fbcdn.net/v/t39.30808-6/277565016_480437413816311_6113663914161653301_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=mY-fn-4Id4wAX-KhOPb&tn=02O5Eo5GCCt2NQPB&_nc_ht=scontent-cdg2-1.xx&oh=00_AfAAI3t3BMVt0cd4hSyNMld6ANMMLcRW1BC15sZL3RAapQ&oe=63971028');
+        $home->setHomeImg('https://picsum.photos/id/200/300');
         $home->setStatus(1); // 1 is open
 
         $manager->persist($home);
 
 
         //! Activity
-        // tableau pour stocker les noms des activités
-        // $activityObjects = [];
+        //tableau pour stocker les noms des activités
+        $activity = [
+            'Piercing',
+            'Tatouage',
+        ];
+        $activityObjects = [];
 
-        // foreach ($activity as $currentActivity) {
-        //     // On instancie une nouvelle activité
-        //     $activity = new Activity();
-        //     // On lui attribue le nom
-        //     $activity->setName($currentActivity);
-        //     // On stocke l'activité dans le tableau
-        //     $activityObjects[] = $activity;
-        //     // On l'enregistre dans le manager
-        //     $manager->persist($activity);
-        // }
 
-        $activity = new Activity();
-        $activity->setName('Piercing');
-        $activity->setBrandName('Lady Piercing');
-        $activity->setLogo('');
-        $manager->persist($activity);
+        foreach ($activity as $currentActivity) {
+            // On instancie une nouvelle activité
+            $activity = new Activity();
+            // On lui attribue le nom
+            $activity->setName($currentActivity);
+            $activity->setBrandName($faker->company());
+            $activity->setLogo('https://picsum.photos/id/200/300');
+            // On stocke l'activité dans le tableau
+            $activityObjects[] = $activity;
+            // On l'enregistre dans le manager
+            $manager->persist($activity);
+        }
 
-        $activity = new Activity();
-        $activity->setName('Tatouage');
-        $activity->setBrandName('Boogi\'ink');
-        $activity->setLogo('');
-        $manager->persist($activity);
+        // $activity = new Activity();
+        // $activity->setName('Piercing');
+        // $activity->setBrandName('Lady Piercing');
+        // $activity->setLogo('https://picsum.photos/id/200/300');
+        // $manager->persist($activity);
+
+        // $activity = new Activity();
+        // $activity->setName('Tatouage');
+        // $activity->setBrandName('Boogi\'ink');
+        // $activity->setLogo('https://picsum.photos/id/200/300');
+        // $manager->persist($activity);
 
 
         //! Services
         $service = new Service();
-        $service->setName($faker->words(2));
+        $service->setName($faker->word());
         $service->setPrice($faker->randomFloat(2, 10, 100));
-        $service->setDescription($faker->sentence(1));
-        $service->setActivityName($faker->randomElement($activity));
-        $service->setCategoryName($faker->randomElement($category));
+        $service->setDescription($faker->sentence(2));
+        $service->setActivityName($faker->randomElement($activityObjects));
+        $service->setCategoryName($faker->randomElement($categoryObjects));
         $manager->persist($service);
 
         // ! Gallerie
@@ -132,7 +139,7 @@ class AppFixtures extends Fixture
         // Boucle pour créer le nombre de boulangeries demandées
         for ($i = 0; $i < $galleryNumber; $i++) {
             $gallery = new Gallery();
-            $gallery->setName($faker->words(3));
+            $gallery->setName($faker->word());
             $gallery->setMainPicture('https://picsum.photos/id/' . ($i + 1) . '/200/300');
             $gallery->setPicture1('https://picsum.photos/id/' . ($i + 1) . '/200/300 ');
             $gallery->setPicture2('https://picsum.photos/id/' . ($i + 1) . '/200/300');
@@ -140,8 +147,8 @@ class AppFixtures extends Fixture
             $gallery->setPicture4('https://picsum.photos/id/' . ($i + 1) . '/200/300');
             $gallery->setPicture5('https://picsum.photos/id/' . ($i + 1) . '/200/300');
             $gallery->setRealisationDate($faker->dateTimeBetween('-1 years', 'now'));
-            $gallery->setCategoryName($faker->randomElement($category));
-            $gallery->setActivityName($faker->randomElement($activity));
+            $gallery->setCategoryName($faker->randomElement($categoryObjects));
+            $gallery->setActivityName($faker->randomElement($activityObjects));
             $galleryObjects[] = $gallery;
             $manager->persist($gallery);
         }
@@ -152,12 +159,12 @@ class AppFixtures extends Fixture
 
         for ($i = 0; $i < $postNumber; $i++) {
             $post = new Post();
-            $post->setTitle($faker->words(6));
+            $post->setTitle($faker->word());
             $post->setSummary($faker->sentence(3));
             $post->setContent($faker->paragraph(4));
             $post->setFeaturedImg('https://picsum.photos/id/' . ($i + 1) . '/600/800');
             $post->setCreatedAt($faker->dateTimeBetween('-1 years', 'now'));
-            $post->setUserId($faker->randomElement($user));
+            $post->setUserId($user);
             $manager->persist($post);
         }
 
@@ -166,13 +173,13 @@ class AppFixtures extends Fixture
 
          for ($i = 0; $i < $commentNumber; $i++) {
             $comment = new Comment();
-            $comment->setProjectName($faker->words(3));
+            $comment->setProjectName($faker->word());
             $comment->setRealisationDate($faker->dateTimeBetween('-1 years', 'now'));
-            $comment->setTitle($faker->words(6));
+            $comment->setTitle($faker->word());
             $comment->setMessage($faker->paragraph(2));
             $comment->setCommentDate($faker->dateTimeBetween('-1 years', 'now'));
-            $comment->setUserId($faker->randomElement($user));
-            $comment->setActivityName($faker->randomElement($activity));
+            $comment->setUserId($user);
+            $comment->setActivityName($faker->randomElement($activityObjects));
             $manager->persist($comment);
          }
 
