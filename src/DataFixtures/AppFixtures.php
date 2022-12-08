@@ -25,28 +25,28 @@ class AppFixtures extends Fixture
         //! Création des users
         $user = new User();
         $user->setEmail('antho@admin.com');
-        $user->setPassword($this->passwordEncoder->encodePassword($user, 'antho'));
+        $user->setPassword('$2y$13$ejHJwdxB46qRnQrS3ZS.Su4LfL8J.yAhz9ChPFpwJsPOOaYwhz5XO'); //Password : antho
         $user->setRoles(['ROLE_ADMIN']);
         $user->setName('Anthony');
         $manager->persist($user);
 
         $user = new User();
         $user->setEmail('lady-karen@admin.com');
-        $user->setPassword($this->passwordEncoder->encodePassword($user, 'karen'));
+        $user->setPassword('$2y$13$ya4jGS1.dA2QFgXC5GM4Ye5aj02vF3rn.YYrMJ3lxl7st6lYXRcHG'); //Password : karen
         $user->setRoles(['ROLE_ADMIN']);
         $user->setName('LadyPiercing');
         $manager->persist($user);
 
         $user = new User();
         $user->setEmail('julien@admin.com');
-        $user->setPassword($this->passwordEncoder->encodePassword($user, 'julien'));
+        $user->setPassword('$2y$13$2bFchuGqIl1IbfXirgegZOwiCawNRT5VoraBfbvbCyHhE7jLkYdV2'); //Password : julien
         $user->setRoles(['ROLE_ADMIN']);
         $user->setName('Julien');
         $manager->persist($user);
 
         $user = new User();
         $user->setEmail('coconut@user.com');
-        $user->setPassword($this->passwordEncoder->encodePassword($user, 'coconut'));
+        $user->setPassword('$2y$13$.TXBrTRlojV1.SIiU7H1fuoR83HuNgGIpkPsah36m5RRehSncFm1q'); //Password : coconut
         $user->setRoles(['ROLE_USER']);
         $user->setName('Best Song');
         $manager->persist($user);
