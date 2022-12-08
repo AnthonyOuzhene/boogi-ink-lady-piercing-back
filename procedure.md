@@ -11,8 +11,8 @@ DATABASE_URL="mysql://boogiJulien:boogiJulien@127.0.0.1:3306/boogiink_data?serve
 
 ```
 sh
-CREATE USER 'boogiJulien'@'localhost' IDENTIFIED BY 'boogiJulien';
-GRANT ALL PRIVILEGES ON boogiink_data.* TO 'boogiJulien'@'localhost';
+CREATE USER 'boogiAntho'@'localhost' IDENTIFIED BY 'boogiAntho';
+GRANT ALL PRIVILEGES ON boogiink_data.* TO 'boogiAntho'@'localhost';
 ```
 
 4/ Créer la base de données avec la commande :
