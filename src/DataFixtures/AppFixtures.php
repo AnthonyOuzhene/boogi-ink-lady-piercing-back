@@ -23,11 +23,14 @@ class AppFixtures extends Fixture
         $faker->seed(806);
 
         //! Création des users
+        $userObjects = [];
+
         $user = new User();
         $user->setEmail('antho@admin.com');
         $user->setPassword('$2y$13$ejHJwdxB46qRnQrS3ZS.Su4LfL8J.yAhz9ChPFpwJsPOOaYwhz5XO'); //Password : antho
         $user->setRoles(['ROLE_ADMIN']);
         $user->setName('Anthony');
+        $userObjects[] = $user;
         $manager->persist($user);
 
         $user = new User();
@@ -35,6 +38,7 @@ class AppFixtures extends Fixture
         $user->setPassword('$2y$13$ya4jGS1.dA2QFgXC5GM4Ye5aj02vF3rn.YYrMJ3lxl7st6lYXRcHG'); //Password : karen
         $user->setRoles(['ROLE_ADMIN']);
         $user->setName('LadyPiercing');
+        $userObjects[] = $user;
         $manager->persist($user);
 
         $user = new User();
@@ -42,6 +46,7 @@ class AppFixtures extends Fixture
         $user->setPassword('$2y$13$2bFchuGqIl1IbfXirgegZOwiCawNRT5VoraBfbvbCyHhE7jLkYdV2'); //Password : julien
         $user->setRoles(['ROLE_ADMIN']);
         $user->setName('Julien');
+        $userObjects[] = $user;
         $manager->persist($user);
 
         $user = new User();
@@ -49,6 +54,7 @@ class AppFixtures extends Fixture
         $user->setPassword('$2y$13$.TXBrTRlojV1.SIiU7H1fuoR83HuNgGIpkPsah36m5RRehSncFm1q'); //Password : coconut
         $user->setRoles(['ROLE_USER']);
         $user->setName('Best Song');
+        $userObjects[] = $user;
         $manager->persist($user);
 
         //! Création des catégories
@@ -88,51 +94,40 @@ class AppFixtures extends Fixture
 
 
         //! Activity
-        //tableau pour stocker les noms des activités
-        $activity = [
-            'Piercing',
-            'Tatouage',
-        ];
         $activityObjects = [];
 
+        $activity = new Activity();
+        $activity->setName('Piercing');
+        $activity->setBrandName('Lady Piercing');
+        $activity->setLogo('lady-piercing-logo.png');
+        $activityObjects[] = $activity;
+        $manager->persist($activity);
 
-        foreach ($activity as $currentActivity) {
-            // On instancie une nouvelle activité
-            $activity = new Activity();
-            // On lui attribue le nom
-            $activity->setName($currentActivity);
-            $activity->setBrandName($faker->company());
-            $activity->setLogo('https://picsum.photos/id/200/300');
-            // On stocke l'activité dans le tableau
-            $activityObjects[] = $activity;
-            // On l'enregistre dans le manager
-            $manager->persist($activity);
-        }
-
-        // $activity = new Activity();
-        // $activity->setName('Piercing');
-        // $activity->setBrandName('Lady Piercing');
-        // $activity->setLogo('https://picsum.photos/id/200/300');
-        // $manager->persist($activity);
-
-        // $activity = new Activity();
-        // $activity->setName('Tatouage');
-        // $activity->setBrandName('Boogi\'ink');
-        // $activity->setLogo('https://picsum.photos/id/200/300');
-        // $manager->persist($activity);
+        $activity = new Activity();
+        $activity->setName('Tatouage');
+        $activity->setBrandName('Boogi\'ink');
+        $activity->setLogo('boogi_ink-logo.png');
+        $activityObjects[] = $activity;
+        $manager->persist($activity);
 
 
         //! Services
-        $service = new Service();
-        $service->setName($faker->word());
-        $service->setPrice($faker->randomFloat(2, 10, 100));
-        $service->setDescription($faker->sentence(2));
-        $service->setActivityName($faker->randomElement($activityObjects));
-        $service->setCategoryName($faker->randomElement($categoryObjects));
-        $manager->persist($service);
+        $serviceNumber = 25;
+
+        // Boucle pour créer le nombre de boulangeries demandées
+        for ($i = 0; $i < $serviceNumber; $i++) {
+
+            $service = new Service();
+            $service->setName($faker->word());
+            $service->setPrice($faker->randomFloat(2, 10, 100));
+            $service->setDescription($faker->sentence(2));
+            $service->setActivityName($faker->randomElement($activityObjects));
+            $service->setCategoryName($faker->randomElement($categoryObjects));
+
+            $manager->persist($service);
+        }
 
         // ! Gallerie
-
         $galleryNumber = 24;
         $galleryObjects = [];
 
@@ -154,7 +149,6 @@ class AppFixtures extends Fixture
         }
 
         //! Post
-
         $postNumber = 11;
 
         for ($i = 0; $i < $postNumber; $i++) {
@@ -164,24 +158,24 @@ class AppFixtures extends Fixture
             $post->setContent($faker->paragraph(4));
             $post->setFeaturedImg('https://picsum.photos/id/' . ($i + 1) . '/600/800');
             $post->setCreatedAt($faker->dateTimeBetween('-1 years', 'now'));
-            $post->setUserId($user);
+            $post->setUserId($faker->randomElement($userObjects));
             $manager->persist($post);
         }
 
         //! Commentaires pour livre d'or
-         $commentNumber = 12;
+        $commentNumber = 12;
 
-         for ($i = 0; $i < $commentNumber; $i++) {
+        for ($i = 0; $i < $commentNumber; $i++) {
             $comment = new Comment();
             $comment->setProjectName($faker->word());
             $comment->setRealisationDate($faker->dateTimeBetween('-1 years', 'now'));
             $comment->setTitle($faker->word());
             $comment->setMessage($faker->paragraph(2));
             $comment->setCommentDate($faker->dateTimeBetween('-1 years', 'now'));
-            $comment->setUserId($user);
+            $comment->setUserId($faker->randomElement($userObjects));
             $comment->setActivityName($faker->randomElement($activityObjects));
             $manager->persist($comment);
-         }
+        }
 
 
 
