@@ -12,7 +12,6 @@ use App\Entity\Service;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Faker\Factory;
 
 class AppFixtures extends Fixture
@@ -176,14 +175,6 @@ class AppFixtures extends Fixture
             $comment->setActivityName($faker->randomElement($activityObjects));
             $manager->persist($comment);
         }
-
-
-
-        //Commande de hash du mot de passe
-        //bin/console security:hash-password admin
-
-        // $product = new Product();
-        // $manager->persist($product);
 
         $manager->flush();
     }
