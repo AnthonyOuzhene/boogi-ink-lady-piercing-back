@@ -5,11 +5,10 @@ namespace App\Entity;
 use App\Repository\HomeRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=HomeRepository::class)
- * @ApiResource()
+ * @ApiResource
  */
 
 class Home
