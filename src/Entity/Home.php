@@ -17,7 +17,6 @@ class Home
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"get_home_infos"})
      * 
      */
     private $id;
