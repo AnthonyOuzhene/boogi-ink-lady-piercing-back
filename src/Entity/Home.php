@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\HomeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass=HomeRepository::class)
+ * @ApiResource
  */
 class Home
 {

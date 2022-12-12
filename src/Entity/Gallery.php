@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\GalleryRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=GalleryRepository::class)
+ * @ApiResource
  */
 class Gallery
 {
@@ -14,6 +17,7 @@ class Gallery
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
      */
     private $id;
 
