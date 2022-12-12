@@ -81,7 +81,7 @@ class AppFixtures extends Fixture
 
         //! Fixtures de la Home
         $home = new Home();
-        $home->setName("Boogi\'ink & Lady Piercing");
+        $home->setName("Boogi'ink & Lady Piercing");
         $home->setAddress("332 rue Louis Gillain");
         $home->setZipCode("27210");
         $home->setCity("Beuzeville");
