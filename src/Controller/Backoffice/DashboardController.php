@@ -10,6 +10,9 @@ use App\Entity\Home;
 use App\Entity\Post;
 use App\Entity\Service;
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -44,17 +47,22 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Activity', 'fa fa-home', Activity::class);
-        yield MenuItem::linkToCrud('Category', 'fa fa-home', Category::class);
-        yield MenuItem::linkToCrud('Comment', 'fa fa-home', Comment::class);
-        yield MenuItem::linkToCrud('Gallery', 'fa fa-home', Gallery::class);
-        yield MenuItem::linkToCrud('Post', 'fa fa-home', Post::class);
-        yield MenuItem::linkToCrud('Service', 'fa fa-home', Service::class);
-        yield MenuItem::linkToCrud('User', 'fa fa-home', User::class);
-
+        yield MenuItem::linkToDashboard('Salon de tatouage', 'fa fa-home');
+        yield MenuItem::linkToCrud('Activités', 'fa fa-briefcase', Activity::class);
+        yield MenuItem::linkToCrud('Categories', 'fa fa-home', Category::class);
+        yield MenuItem::linkToCrud('Livre d\'or', 'fa fa-home', Comment::class);
+        yield MenuItem::linkToCrud('Gallerie', 'fa fa-home', Gallery::class);
+        yield MenuItem::linkToCrud('Blog', 'fa fa-home', Post::class);
+        yield MenuItem::linkToCrud('Prestations', 'fa fa-home', Service::class);
+        yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-home', User::class);
     
-
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
+    public function configureCrud(): Crud
+    {
+        return Crud::new()
+            ->setDateFormat('dd/MM/yyyy');
+    }
+
+    
 }
