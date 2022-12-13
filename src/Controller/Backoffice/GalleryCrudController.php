@@ -7,12 +7,31 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class GalleryCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
         return Gallery::class;
+    }
+
+    public function configureFields(string $pageName): iterable
+    {
+        return [
+            IdField::new('id')->hideOnForm(),
+            TextField::new('name', 'Titre de l\'image'),
+            TextField::new('main_picture', 'Image principale'),
+            TextField::new('picture1', 'Image secondaire 1'),
+            TextField::new('picture2', 'Image secondaire 2'),
+            TextField::new('picture3', 'Image secondaire 3'),
+            TextField::new('picture4', 'Image secondaire 4'),
+            TextField::new('picture5', 'Image secondaire 5'),
+            TextField::new('video', 'Vidéo'),
+            DateField::new('realisation_date', 'Date de réalisation '),
+        ];
     }
 
     public function configureActions(Actions $actions): Actions
@@ -47,14 +66,15 @@ class GalleryCrudController extends AbstractCrudController
             );
     }
 
-    /*
-    public function configureFields(string $pageName): iterable
+    public function configureCrud(Crud $crud): Crud
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        return $crud
+            // ...
+            //->showEntityActionsInlined()
+            ->setPaginatorPageSize(10)
+            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des photos')
+            ->setPageTitle(Crud::PAGE_NEW, 'Ajouter une photo')
+            ->setPageTitle(Crud::PAGE_EDIT, 'Modifier une photo')
+            ->setPageTitle(Crud::PAGE_DETAIL, 'Détails d\'une photo');
     }
-    */
 }

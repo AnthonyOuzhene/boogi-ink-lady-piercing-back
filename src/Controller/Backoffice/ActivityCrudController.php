@@ -33,16 +33,20 @@ class ActivityCrudController extends AbstractCrudController
 
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
 
-            ->update(Crud::PAGE_INDEX,
-            Action::DETAIL,
-            function (Action $action) {
-                return $action->setLabel('Détails d\'une %entity_label_singular%')->setIcon('fa fa-eye');
-            })
-            ->update(Crud::PAGE_INDEX,
-            Action::NEW,
-            function (Action $action) {
-                return $action->setLabel('Ajouter une %entity_label_singular%')->setIcon('fa fa-plus');
-            })
+            ->update(
+                Crud::PAGE_INDEX,
+                Action::DETAIL,
+                function (Action $action) {
+                    return $action->setLabel('Détails d\'une %entity_label_singular%')->setIcon('fa fa-eye');
+                }
+            )
+            ->update(
+                Crud::PAGE_INDEX,
+                Action::NEW,
+                function (Action $action) {
+                    return $action->setLabel('Ajouter une %entity_label_singular%')->setIcon('fa fa-plus');
+                }
+            )
             ->update(
                 Crud::PAGE_INDEX,
                 Action::EDIT,
@@ -59,14 +63,14 @@ class ActivityCrudController extends AbstractCrudController
             );
     }
 
-    /*
-    public function configureFields(string $pageName): iterable
+    public function configureCrud(Crud $crud): Crud
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
-        ];
+        return $crud
+            //->showEntityActionsInlined()
+            ->setPaginatorPageSize(10)
+            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des activités')
+            ->setPageTitle(Crud::PAGE_NEW, 'Ajouter une activité')
+            ->setPageTitle(Crud::PAGE_EDIT, 'Modifier une activité')
+            ->setPageTitle(Crud::PAGE_DETAIL, 'Détails d\'une activité');
     }
-    */
 }

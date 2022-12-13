@@ -54,14 +54,6 @@ class Service
     {
         return $this->id;
     }
-
-    // Fonction to sove problem with id in easyadmin
-    // public function setId(int $id): self
-    // {
-    //     $this->id = $id;
-
-    //     return $this;
-    // }
     
     public function getName(): ?string
     {
