@@ -43,25 +43,25 @@ class GalleryCrudController extends AbstractCrudController
             ->update(Crud::PAGE_INDEX,
             Action::DETAIL,
             function (Action $action) {
-                return $action->setLabel('Détails d\'une %entity_label_singular%')->setIcon('fa fa-eye');
+                return $action->setLabel('Détails d\'une réalisation photo')->setIcon('fa fa-eye');
             })
             ->update(Crud::PAGE_INDEX,
             Action::NEW,
             function (Action $action) {
-                return $action->setLabel('Ajouter une %entity_label_singular%')->setIcon('fa fa-plus');
+                return $action->setLabel('Ajouter une réalisation photo')->setIcon('fa fa-plus');
             })
             ->update(
                 Crud::PAGE_INDEX,
                 Action::EDIT,
                 function (Action $action) {
-                    return $action->setLabel('Modifier une %entity_label_singular%')->setIcon('fa fa-pencil');
+                    return $action->setLabel('Modifier une réalisation photo')->setIcon('fa fa-pencil');
                 }
             )
             ->update(
                 Crud::PAGE_INDEX,
                 Action::DELETE,
                 function (Action $action) {
-                    return $action->setLabel('Supprimer une %entity_label_singular%')->setIcon('fa fa-trash');
+                    return $action->setLabel('Supprimer une réalisation photo')->setIcon('fa fa-trash');
                 }
             );
     }

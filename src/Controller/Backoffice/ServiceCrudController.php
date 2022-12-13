@@ -33,6 +33,7 @@ class ServiceCrudController extends AbstractCrudController
             // hideOnIndex() permet de cacher la photo sur la liste des services
             TextareaField::new('picture', "Photo du service")->hideOnIndex(),
             AssociationField::new('activity_name'),
+            AssociationField::new('category_name'),
         ];
     }
 
@@ -45,27 +46,38 @@ class ServiceCrudController extends AbstractCrudController
             ->update(Crud::PAGE_INDEX,
             Action::DETAIL,
             function (Action $action) {
-                return $action->setLabel('Détails d\'une %entity_label_singular%')->setIcon('fa fa-eye');
+                return $action->setLabel('Détails d\'une prestation')->setIcon('fa fa-eye');
             })
             ->update(Crud::PAGE_INDEX,
             Action::NEW,
             function (Action $action) {
-                return $action->setLabel('Ajouter une %entity_label_singular%')->setIcon('fa fa-plus');
+                return $action->setLabel('Ajouter une prestation')->setIcon('fa fa-plus');
             })
             ->update(
                 Crud::PAGE_INDEX,
                 Action::EDIT,
                 function (Action $action) {
-                    return $action->setLabel('Modifier une %entity_label_singular%')->setIcon('fa fa-pencil');
+                    return $action->setLabel('Modifier une prestation')->setIcon('fa fa-pencil');
                 }
             )
             ->update(
                 Crud::PAGE_INDEX,
                 Action::DELETE,
                 function (Action $action) {
-                    return $action->setLabel('Supprimer une %entity_label_singular%')->setIcon('fa fa-trash');
+                    return $action->setLabel('Supprimer une prestation')->setIcon('fa fa-trash');
                 }
             );
     }
-    
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            // ...
+            //->showEntityActionsInlined()
+            ->setPaginatorPageSize(10)
+            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des prestations')
+            ->setPageTitle(Crud::PAGE_NEW, 'Ajouter une prestation')
+            ->setPageTitle(Crud::PAGE_EDIT, 'Modifier une prestation')
+            ->setPageTitle(Crud::PAGE_DETAIL, 'Détails de la prestation');
+    }
 }

@@ -49,12 +49,12 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Salon de tatouage', 'fa fa-home');
         yield MenuItem::linkToCrud('Activités', 'fa fa-briefcase', Activity::class);
-        yield MenuItem::linkToCrud('Categories', 'fa fa-home', Category::class);
-        yield MenuItem::linkToCrud('Livre d\'or', 'fa fa-home', Comment::class);
-        yield MenuItem::linkToCrud('Gallerie', 'fa fa-home', Gallery::class);
-        yield MenuItem::linkToCrud('Blog', 'fa fa-home', Post::class);
-        yield MenuItem::linkToCrud('Prestations', 'fa fa-home', Service::class);
-        yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-home', User::class);
+        yield MenuItem::linkToCrud('Categories', 'fa fa-list', Category::class);
+        yield MenuItem::linkToCrud('Livre d\'or', 'fa fa-comment', Comment::class);
+        yield MenuItem::linkToCrud('Gallerie', 'fa fa-image', Gallery::class);
+        yield MenuItem::linkToCrud('Blog', 'fa fa-blog', Post::class);
+        yield MenuItem::linkToCrud('Prestations', 'fa fa-pen', Service::class);
+        yield MenuItem::linkToCrud('Utilisateurs', 'fa fa-users', User::class);
     
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }

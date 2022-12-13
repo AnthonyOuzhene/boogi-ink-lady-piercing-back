@@ -35,28 +35,28 @@ class CategoryCrudController extends AbstractCrudController
                 Crud::PAGE_INDEX,
                 Action::DETAIL,
                 function (Action $action) {
-                    return $action->setLabel('Détails d\'une %entity_label_singular%')->setIcon('fa fa-eye');
+                    return $action->setLabel('Détails d\'une catégorie')->setIcon('fa fa-eye');
                 }
             )
             ->update(
                 Crud::PAGE_INDEX,
                 Action::NEW,
                 function (Action $action) {
-                    return $action->setLabel('Ajouter une %entity_label_singular%')->setIcon('fa fa-plus');
+                    return $action->setLabel('Ajouter une catégorie')->setIcon('fa fa-plus');
                 }
             )
             ->update(
                 Crud::PAGE_INDEX,
                 Action::EDIT,
                 function (Action $action) {
-                    return $action->setLabel('Modifier une %entity_label_singular%')->setIcon('fa fa-pencil');
+                    return $action->setLabel('Modifier une catégorie')->setIcon('fa fa-pencil');
                 }
             )
             ->update(
                 Crud::PAGE_INDEX,
                 Action::DELETE,
                 function (Action $action) {
-                    return $action->setLabel('Supprimer une %entity_label_singular%')->setIcon('fa fa-trash');
+                    return $action->setLabel('Supprimer une catégorie')->setIcon('fa fa-trash');
                 }
             );
     }

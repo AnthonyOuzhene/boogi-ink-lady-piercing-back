@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -27,6 +28,7 @@ class PostCrudController extends AbstractCrudController
             TextField::new('content', 'Contenu'),
             TextField::new('featured_img', 'Image principale'),
             DateField::new('created_at', 'Date de publication'),
+            AssociationField::new('user_id', 'Utilisateur'),
         ];
     }
 
@@ -40,28 +42,28 @@ class PostCrudController extends AbstractCrudController
                 Crud::PAGE_INDEX,
                 Action::DETAIL,
                 function (Action $action) {
-                    return $action->setLabel('Détails d\'une %entity_label_singular%')->setIcon('fa fa-eye');
+                    return $action->setLabel('Détails d\'un article')->setIcon('fa fa-eye');
                 }
             )
             ->update(
                 Crud::PAGE_INDEX,
                 Action::NEW,
                 function (Action $action) {
-                    return $action->setLabel('Ajouter une %entity_label_singular%')->setIcon('fa fa-plus');
+                    return $action->setLabel('Ajouter un article')->setIcon('fa fa-plus');
                 }
             )
             ->update(
                 Crud::PAGE_INDEX,
                 Action::EDIT,
                 function (Action $action) {
-                    return $action->setLabel('Modifier une %entity_label_singular%')->setIcon('fa fa-pencil');
+                    return $action->setLabel('Modifier un article')->setIcon('fa fa-pencil');
                 }
             )
             ->update(
                 Crud::PAGE_INDEX,
                 Action::DELETE,
                 function (Action $action) {
-                    return $action->setLabel('Supprimer une %entity_label_singular%')->setIcon('fa fa-trash');
+                    return $action->setLabel('Supprimer un article')->setIcon('fa fa-trash');
                 }
             );
     }
@@ -71,7 +73,7 @@ class PostCrudController extends AbstractCrudController
         return $crud
             // ...
             //->showEntityActionsInlined()
-            ->setPaginatorPageSize(10)
+            ->setPaginatorPageSize(7)
             ->setPageTitle(Crud::PAGE_INDEX, 'Liste des  articles')
             ->setPageTitle(Crud::PAGE_NEW, 'Ajouter un article')
             ->setPageTitle(Crud::PAGE_EDIT, 'Modifier un article')

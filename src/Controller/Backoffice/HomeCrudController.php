@@ -31,8 +31,8 @@ class HomeCrudController extends AbstractCrudController
             TextField::new('address', 'Adresse'),
             IntegerField::new('zip_code', 'Code postal'),
             TextField::new('city', 'Ville'),
-            TextField::new('home_img', 'Photo du salon'),
-            //ImageField::new('home_img', 'Photo du salon')->onlyOnForms(),
+            //TextField::new('home_img', 'Photo du salon'),
+            ImageField::new('home_img', 'Photo du salon')->onlyOnIndex(),
             TextField::new('phone_number', 'Téléphone'),
             BooleanField::new('status', 'Statut'),
         ];
