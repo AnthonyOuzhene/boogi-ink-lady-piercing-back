@@ -26,14 +26,15 @@ class PostCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            
+
             IdField::new('id')->hideOnForm(),
             TextField::new('title', 'Titre de l\'article'),
             TextField::new('summary', 'Résumé'),
             TextEditorField::new('content')->setFormType(CKEditorType::class)->setLabel('Contenu de l\'article'),
 
             //TextField::new('featured_img', 'Image principale'),
-            ImageField::new('featured_img', 'Image mise en avant')->setBasePath('images/')->SetUploadDir('public/images/'),
+            ImageField::new('featured_img', 'Image mise en avant')->setBasePath('images/')
+                ->SetUploadDir('public/images/'),
             DateField::new('created_at', 'Date de publication'),
             AssociationField::new('user_id', 'Utilisateur'),
         ];
@@ -78,13 +79,13 @@ class PostCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-        // ...
-        //->showEntityActionsInlined()
-        ->setPaginatorPageSize(7)
-        ->setPageTitle(Crud::PAGE_INDEX, 'Liste des  articles')
-        ->setPageTitle(Crud::PAGE_NEW, 'Ajouter un article')
-        ->setPageTitle(Crud::PAGE_EDIT, 'Modifier un article')
-        ->setPageTitle(Crud::PAGE_DETAIL, 'Détails d\'un article')
-        ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
+            // ...
+            //->showEntityActionsInlined()
+            ->setPaginatorPageSize(7)
+            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des  articles')
+            ->setPageTitle(Crud::PAGE_NEW, 'Ajouter un article')
+            ->setPageTitle(Crud::PAGE_EDIT, 'Modifier un article')
+            ->setPageTitle(Crud::PAGE_DETAIL, 'Détails d\'un article')
+            ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
 }

@@ -158,6 +158,7 @@ class AppFixtures extends Fixture
             $post->setFeaturedImg('https://picsum.photos/id/' . ($i + 1) . '/600/800');
             $post->setCreatedAt($faker->dateTimeBetween('-1 years', 'now'));
             $post->setUserId($faker->randomElement($userObjects));
+            $post->setSlug($faker->slug());
             $manager->persist($post);
         }
 
