@@ -15,12 +15,13 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Regex;
 
-
 class UserCrudController extends AbstractCrudController
 {
+
     public static function getEntityFqcn(): string
     {
         return User::class;
@@ -37,27 +38,27 @@ class UserCrudController extends AbstractCrudController
             //EmailField::new('email')->onlyWhenCreating(),
 
             Field::new('password', 'Nouveau mot de passe')->onlyWhenCreating()->setRequired(true)
-            ->setFormType(RepeatedType::class)
-            ->setFormTypeOptions([
-                'type' => PasswordType::class,
-                'first_options' => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Confirmation du mot de passe'],
-                'error_bubbling' => true,
-                'invalid_message' => 'Les mots de passe ne correspondent pas',
-                
-                'constraints' => [
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                    new Regex([
-                        'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
-                        'message' => 'Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre',
-                    ]),
-                ],
-            ]),
+                ->setFormType(RepeatedType::class)
+                ->setFormTypeOptions([
+                    'type' => PasswordType::class,
+                    'first_options' => ['label' => 'Mot de passe'],
+                    'second_options' => ['label' => 'Confirmation du mot de passe'],
+                    'error_bubbling' => true,
+                    'invalid_message' => 'Les mots de passe ne correspondent pas',
+
+                    'constraints' => [
+                        new Length([
+                            'min' => 6,
+                            'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
+                            // max length allowed by Symfony for security reasons
+                            'max' => 4096,
+                        ]),
+                        new Regex([
+                            'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+                            'message' => 'Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre',
+                        ]),
+                    ],
+                ]),
 
             Field::new('password', 'Nouveau mot de passe')->onlyWhenUpdating()->setRequired(false)
                 ->setFormType(RepeatedType::class)
@@ -68,20 +69,20 @@ class UserCrudController extends AbstractCrudController
                     'error_bubbling' => true,
                     'invalid_message' => 'Les mots de passe ne correspondent pas',
 
-                    // 'constraints' => [
-                    //     new Length([
-                    //         'min' => 6,
-                    //         'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
-                    //         // max length allowed by Symfony for security reasons
-                    //         'max' => 4096,
-                    //     ]),
-                    //     new Regex([
-                    //         'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
-                    //         'message' => 'Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre',
-                    //     ]),
-                    // ],
+                    'constraints' => [
+                        new Length([
+                            'min' => 6,
+                            'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
+                            // max length allowed by Symfony for security reasons
+                            'max' => 4096,
+                        ]),
+                        new Regex([
+                            'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+                            'message' => 'Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre',
+                        ]),
+                    ],
                 ]),
-                
+
 
             ChoiceField::new('roles',   'Rôle')
                 ->setChoices([
@@ -96,7 +97,7 @@ class UserCrudController extends AbstractCrudController
                 ->setRequired(true)
                 ->setHelp('Vous devez choisir au moins un rôle'),
 
-                FormField::addPanel( 'Change password' )->setIcon( 'fa fa-key' )->onlyWhenUpdating(),
+            FormField::addPanel('Change password')->setIcon('fa fa-key')->onlyWhenUpdating(),
         ];
     }
 
