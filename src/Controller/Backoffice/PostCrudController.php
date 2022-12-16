@@ -10,7 +10,10 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class PostCrudController extends AbstractCrudController
 {
@@ -25,8 +28,10 @@ class PostCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('title', 'Titre de l\'article'),
             TextField::new('summary', 'Résumé'),
-            TextField::new('content', 'Contenu'),
-            TextField::new('featured_img', 'Image principale'),
+            TextEditorField::new('content'),
+
+            //TextField::new('featured_img', 'Image principale'),
+            ImageField::new('featured_img', 'Image mise en avant')->setBasePath('images/')->SetUploadDir('public/images/'),
             DateField::new('created_at', 'Date de publication'),
             AssociationField::new('user_id', 'Utilisateur'),
         ];
@@ -79,5 +84,4 @@ class PostCrudController extends AbstractCrudController
             ->setPageTitle(Crud::PAGE_EDIT, 'Modifier un article')
             ->setPageTitle(Crud::PAGE_DETAIL, 'Détails d\'un article');
     }
-
 }

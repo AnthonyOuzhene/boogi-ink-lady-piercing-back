@@ -15,7 +15,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Regex;
 
@@ -97,7 +96,7 @@ class UserCrudController extends AbstractCrudController
                 ->setRequired(true)
                 ->setHelp('Vous devez choisir au moins un rôle'),
 
-            FormField::addPanel('Change password')->setIcon('fa fa-key')->onlyWhenUpdating(),
+            FormField::addPanel('Changement du mot de passe')->setIcon('fa fa-key')->onlyWhenUpdating(),
         ];
     }
 
