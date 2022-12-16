@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -25,10 +26,11 @@ class PostCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
+            
             IdField::new('id')->hideOnForm(),
             TextField::new('title', 'Titre de l\'article'),
             TextField::new('summary', 'Résumé'),
-            TextEditorField::new('content'),
+            TextEditorField::new('content')->setFormType(CKEditorType::class)->setLabel('Contenu de l\'article'),
 
             //TextField::new('featured_img', 'Image principale'),
             ImageField::new('featured_img', 'Image mise en avant')->setBasePath('images/')->SetUploadDir('public/images/'),
@@ -76,12 +78,13 @@ class PostCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            // ...
-            //->showEntityActionsInlined()
-            ->setPaginatorPageSize(7)
-            ->setPageTitle(Crud::PAGE_INDEX, 'Liste des  articles')
-            ->setPageTitle(Crud::PAGE_NEW, 'Ajouter un article')
-            ->setPageTitle(Crud::PAGE_EDIT, 'Modifier un article')
-            ->setPageTitle(Crud::PAGE_DETAIL, 'Détails d\'un article');
+        // ...
+        //->showEntityActionsInlined()
+        ->setPaginatorPageSize(7)
+        ->setPageTitle(Crud::PAGE_INDEX, 'Liste des  articles')
+        ->setPageTitle(Crud::PAGE_NEW, 'Ajouter un article')
+        ->setPageTitle(Crud::PAGE_EDIT, 'Modifier un article')
+        ->setPageTitle(Crud::PAGE_DETAIL, 'Détails d\'un article')
+        ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
     }
 }
