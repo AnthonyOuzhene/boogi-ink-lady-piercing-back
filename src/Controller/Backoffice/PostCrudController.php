@@ -5,6 +5,7 @@ namespace App\Controller\Backoffice;
 use App\Entity\Post;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -27,16 +28,15 @@ class PostCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-
+            FormField::addPanel()->addCssClass('col-md-8'),
             IdField::new('id')->hideOnForm(),
             TextField::new('title', 'Titre de l\'article'),
-            SlugField::new('slug', 'Slug')->setTargetFieldName('title')->hideOnIndex(),
             TextField::new('summary', 'Résumé'),
             TextEditorField::new('content')->setFormType(CKEditorType::class)->setLabel('Contenu de l\'article'),
 
-            //TextField::new('featured_img', 'Image principale'),
-            ImageField::new('featured_img', 'Image mise en avant')->setBasePath('images/')
-                ->SetUploadDir('public/images/'),
+            FormField::addPanel('Options Article')->addCssClass('col-md-4'),
+            SlugField::new('slug', 'Slug')->setTargetFieldName('title')->hideOnIndex(),
+            ImageField::new('featured_img', 'Image mise en avant')->setBasePath('images/')->SetUploadDir('public/images/'),
             DateField::new('created_at', 'Date de publication'),
             AssociationField::new('user_id', 'Utilisateur'),
         ];
@@ -89,5 +89,11 @@ class PostCrudController extends AbstractCrudController
             ->setPageTitle(Crud::PAGE_EDIT, 'Modifier un article')
             ->setPageTitle(Crud::PAGE_DETAIL, 'Détails d\'un article')
             ->addFormTheme('@FOSCKEditor/Form/ckeditor_widget.html.twig');
+    }
+
+    public function configureAssets(Assets $assets): Assets
+    {
+        return $assets
+            ->addCssFile('/assets/css/form_article.css');
     }
 }
