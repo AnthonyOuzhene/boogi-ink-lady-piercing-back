@@ -14,6 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -28,17 +29,25 @@ class PostCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            FormField::addPanel()->addCssClass('col-md-8'),
+            FormField::addPanel()
+                ->addCssClass('col-md-8'),
+
             IdField::new('id')->hideOnForm(),
             TextField::new('title', 'Titre de l\'article'),
-            TextField::new('summary', 'Résumé'),
+            TextareaField::new('summary', 'Résumé'),
             TextEditorField::new('content')->setFormType(CKEditorType::class)->setLabel('Contenu de l\'article'),
 
-            FormField::addPanel('Options Article')->addCssClass('col-md-4'),
+            FormField::addPanel('Options Article')
+                ->addCssClass('col-md-4'),
             SlugField::new('slug', 'Slug')->setTargetFieldName('title')->hideOnIndex(),
-            ImageField::new('featured_img', 'Image mise en avant')->setBasePath('images/')->SetUploadDir('public/images/'),
+            ImageField::new('featured_img', 'Image de mise en avant')
+                ->setBasePath('images/')
+                ->SetUploadDir('public/images/'),
             DateField::new('created_at', 'Date de publication'),
-            AssociationField::new('user_id', 'Utilisateur'),
+            AssociationField::new('user_id', 'Utilisateur')
+                ->setFormTypeOptions([
+                    'expanded' => true,
+                ]),
         ];
     }
 

@@ -1,5 +1,8 @@
-form#new-Post-form {
 
-}
+#cke_Post_content {
+    width: 150%;
+    }
+    
+    /* form#new-Post-form {
 
-form#edit-Post-form {}
+    } */

@@ -84,6 +84,9 @@ class UserCrudController extends AbstractCrudController
 
 
             ChoiceField::new('roles',   'Rôle')
+                ->setFormTypeOptions([
+                    'expanded' => true,
+                ])
                 ->setChoices([
                     'Administrateur' => 'ROLE_ADMIN',
                     'Utilisateur' => 'ROLE_USER',
