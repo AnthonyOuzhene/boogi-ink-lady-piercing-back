@@ -35,7 +35,8 @@ class PostCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('title', 'Titre de l\'article'),
             TextareaField::new('summary', 'Résumé'),
-            TextEditorField::new('content')->setFormType(CKEditorType::class)->setLabel('Contenu de l\'article'),
+            TextEditorField::new('content')
+            ->setFormType(CKEditorType::class)->setLabel('Contenu de l\'article'),
 
             FormField::addPanel('Options Article')
                 ->addCssClass('col-md-4'),
