@@ -15,6 +15,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Regex;
 
@@ -82,21 +84,18 @@ class UserCrudController extends AbstractCrudController
                     ],
                 ]),
 
-
-            ChoiceField::new('roles',   'Rôle')
+            ChoiceField::new('roles',  'Rôles')
+                ->setChoices([
+                    'Utilisateur' => 'ROLE_USER',
+                    'Administrateur' => 'ROLE_ADMIN',
+                ])
+                
                 ->setFormTypeOptions([
                     'expanded' => true,
+                    'multiple' => true,
                 ])
-                ->setChoices([
-                    'Administrateur' => 'ROLE_ADMIN',
-                    'Utilisateur' => 'ROLE_USER',
-                ])
-                ->allowMultipleChoices(
-                    true,
-                    'Vous devez choisir au moins un rôle',
-                )
+                ->autocomplete()
                 ->renderAsBadges()
-                ->setRequired(true)
                 ->setHelp('Vous devez choisir au moins un rôle'),
 
             FormField::addPanel('Changement du mot de passe')->setIcon('fa fa-key')->onlyWhenUpdating(),
@@ -148,7 +147,9 @@ class UserCrudController extends AbstractCrudController
             ->setPageTitle(Crud::PAGE_INDEX, 'Liste des utilisateurs')
             ->setPageTitle(Crud::PAGE_NEW, 'Ajouter un utilisateur')
             ->setPageTitle(Crud::PAGE_EDIT, 'Modifier un utilisateur')
-            ->setPageTitle(Crud::PAGE_DETAIL, 'Détails d\'un utilisateur')
-            //->setEntityPermission('ROLE_ADMIN');
+            ->setPageTitle(Crud::PAGE_DETAIL, 'Détails d\'un utilisateur');
+
+        // Permet d'afficher les résultats de la recherche selon le role de l'utilisateur connecté
+        //->setEntityPermission('ROLE_ADMIN');
     }
 }
