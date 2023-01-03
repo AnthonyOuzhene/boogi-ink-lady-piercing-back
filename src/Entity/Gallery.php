@@ -46,9 +46,21 @@ class Gallery
     private $picture1;
 
     /**
+     * @Vich\UploadableField(mapping="gallery_images", fileNameProperty="picture1")
+     * @var File
+     */
+    private $picture1File;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture2;
+
+    /**
+     * @Vich\UploadableField(mapping="gallery_images", fileNameProperty="picture2")
+     * @var File
+     */
+    private $picture2File;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -56,14 +68,32 @@ class Gallery
     private $picture3;
 
     /**
+     * @Vich\UploadableField(mapping="gallery_images", fileNameProperty="picture3")
+     * @var File
+     */
+    private $picture3File;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture4;
 
     /**
+     * @Vich\UploadableField(mapping="gallery_images", fileNameProperty="picture4")
+     * @var File
+     */
+    private $picture4File;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $picture5;
+
+    /**
+     * @Vich\UploadableField(mapping="gallery_images", fileNameProperty="picture5")
+     * @var File
+     */
+    private $picture5File;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -114,13 +144,13 @@ class Gallery
 
         return $this;
     }
-    
-    public function setMainPictureFile(File $main_picture = null)
-    {
-        $this->main_pictureFile = $main_picture;
 
-        if ($main_picture) {
-            $this->updatedAt = new \DateTime('now');
+    public function setMainPictureFile(File $file = null)
+    {
+        $this->main_pictureFile = $file;
+
+        if ($file) {
+            $this->realisation_date = new \DateTime('now');
         }
     }
 
@@ -141,6 +171,20 @@ class Gallery
         return $this;
     }
 
+    public function setPicture1File(File $file = null)
+    {
+        $this->picture1File = $file;
+
+        if ($file) {
+            $this->realisation_date = new \DateTime('now');
+        }
+    }
+
+    public function getPicture1File()
+    {
+        return $this->picture1File;
+    }
+
     public function getPicture2(): ?string
     {
         return $this->picture2;
@@ -152,6 +196,21 @@ class Gallery
 
         return $this;
     }
+
+    public function setPicture2File(File $file = null)
+    {
+        $this->picture2File = $file;
+
+        if ($file) {
+            $this->realisation_date = new \DateTime('now');
+        }
+    }
+
+    public function getPicture2File()
+    {
+        return $this->picture2File;
+    }
+
 
     public function getPicture3(): ?string
     {
@@ -165,6 +224,21 @@ class Gallery
         return $this;
     }
 
+    public function setPicture3File(File $image = null)
+    {
+        $this->picture3File = $image;
+
+        if ($image) {
+            $this->realisation_date = new \DateTime('now');
+        }
+    }
+
+    public function getPicture3File()
+    {
+        return $this->picture3File;
+    }
+
+
     public function getPicture4(): ?string
     {
         return $this->picture4;
@@ -177,6 +251,20 @@ class Gallery
         return $this;
     }
 
+    public function setPicture4File(File $file = null)
+    {
+        $this->picture4File = $file;
+
+        if ($file) {
+            $this->realisation_date = new \DateTime('now');
+        }
+    }
+
+    public function getPicture4File()
+    {
+        return $this->picture4File;
+    }
+
     public function getPicture5(): ?string
     {
         return $this->picture5;
@@ -187,6 +275,20 @@ class Gallery
         $this->picture5 = $picture5;
 
         return $this;
+    }
+
+    public function setPicture5File(File $file = null)
+    {
+        $this->picture5File = $file;
+
+        if ($file) {
+            $this->realisation_date = new \DateTime('now');
+        }
+    }
+
+    public function getPicture5File()
+    {
+        return $this->picture5File;
     }
 
     public function getVideo(): ?string

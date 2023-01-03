@@ -7,6 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -29,13 +30,32 @@ class GalleryCrudController extends AbstractCrudController
             TextField::new('main_pictureFile', 'Image principale')->setFormType(VichImageType::class)->onlyOnForms(),
             ImageField::new('main_picture', 'Image principale')->setBasePath('/uploads/gallery')->onlyOnIndex(),
 
-            TextField::new('picture1', 'Image secondaire 1'),
-            TextField::new('picture2', 'Image secondaire 2'),
-            TextField::new('picture3', 'Image secondaire 3'),
-            TextField::new('picture4', 'Image secondaire 4'),
-            TextField::new('picture5', 'Image secondaire 5'),
+            textField::new('picture1File', 'Image secondaire 1')->setFormType(VichImageType::class)->onlyOnForms(),
+            ImageField::new('picture1', 'Image secondaire 1')->setBasePath('/uploads/gallery')->onlyOnIndex(),
+
+            textField::new('picture2File', 'Image secondaire 2')->setFormType(VichImageType::class)->onlyOnForms(),
+            ImageField::new('picture2', 'Image secondaire 2')->setBasePath('/uploads/gallery')->onlyOnIndex(),
+
+            textField::new('picture3File', 'Image secondaire 3')->setFormType(VichImageType::class)->onlyOnForms(),
+            ImageField::new('picture3', 'Image secondaire 3')->setBasePath('/uploads/gallery')->onlyOnIndex(),
+
+            textField::new('picture4File', 'Image secondaire 4')->setFormType(VichImageType::class)->onlyOnForms(),
+            ImageField::new('picture4', 'Image secondaire 4')->setBasePath('/uploads/gallery')->onlyOnIndex(),
+
+            textField::new('picture5File', 'Image secondaire 5')->setFormType(VichImageType::class)->onlyOnForms(),
+            ImageField::new('picture5', 'Image secondaire 5')->setBasePath('/uploads/gallery')->onlyOnIndex(),
+            
             TextField::new('video', 'Vidéo'),
             DateField::new('realisation_date', 'Date de réalisation '),
+
+            AssociationField::new('category_name', 'Catégorie')
+            ->setFormTypeOptions([
+                'expanded' => true,
+            ]),
+            AssociationField::new('activity_name', 'Activité')
+            ->setFormTypeOptions([
+                'expanded' => true,
+            ]),
         ];
     }
 
