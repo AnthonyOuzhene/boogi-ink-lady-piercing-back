@@ -101,6 +101,12 @@ class Gallery
     private $video;
 
     /**
+     * @Vich\UploadableField(mapping="gallery_videos", fileNameProperty="video")
+     * @var File
+     */
+    private $videoFile;
+
+    /**
      * @ORM\Column(type="date", nullable=true)
      */
     private $realisation_date;
@@ -301,6 +307,20 @@ class Gallery
         $this->video = $video;
 
         return $this;
+    }
+
+    public function setVideoFile(File $file = null)
+    {
+        $this->videoFile = $file;
+
+        if ($file) {
+            $this->realisation_date = new \DateTime('now');
+        }
+    }
+
+    public function getVideoFile()
+    {
+        return $this->videoFile;
     }
 
     public function getRealisationDate(): ?\DateTimeInterface

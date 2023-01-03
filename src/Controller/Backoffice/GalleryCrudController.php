@@ -44,8 +44,9 @@ class GalleryCrudController extends AbstractCrudController
 
             textField::new('picture5File', 'Image secondaire 5')->setFormType(VichImageType::class)->onlyOnForms(),
             ImageField::new('picture5', 'Image secondaire 5')->setBasePath('/uploads/gallery')->onlyOnIndex(),
-            
-            TextField::new('video', 'Vidéo'),
+
+            TextField::new('videoFile', 'Vidéo')->setFormType(VichImageType::class)->onlyOnForms(),
+
             DateField::new('realisation_date', 'Date de réalisation '),
 
             AssociationField::new('category_name', 'Catégorie')
