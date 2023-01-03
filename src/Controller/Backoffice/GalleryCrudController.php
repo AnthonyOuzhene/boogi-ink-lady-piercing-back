@@ -9,7 +9,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class GalleryCrudController extends AbstractCrudController
 {
@@ -23,7 +25,10 @@ class GalleryCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('name', 'Titre de l\'image'),
-            TextField::new('main_picture', 'Image principale'),
+            
+            TextField::new('main_pictureFile', 'Image principale')->setFormType(VichImageType::class)->onlyOnForms(),
+            ImageField::new('main_picture', 'Image principale')->setBasePath('/uploads/gallery')->onlyOnIndex(),
+
             TextField::new('picture1', 'Image secondaire 1'),
             TextField::new('picture2', 'Image secondaire 2'),
             TextField::new('picture3', 'Image secondaire 3'),

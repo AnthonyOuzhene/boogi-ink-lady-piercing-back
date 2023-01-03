@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass=GalleryRepository::class)
@@ -32,6 +33,12 @@ class Gallery
      * @ORM\Column(type="string", length=255)
      */
     private $main_picture;
+
+    /**
+     * @Vich\UploadableField(mapping="gallery_images", fileNameProperty="main_picture")
+     * @var File
+     */
+    private $main_pictureFile;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -106,6 +113,20 @@ class Gallery
         $this->main_picture = $main_picture;
 
         return $this;
+    }
+    
+    public function setMainPictureFile(File $main_picture = null)
+    {
+        $this->main_pictureFile = $main_picture;
+
+        if ($main_picture) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getMainPictureFile()
+    {
+        return $this->main_pictureFile;
     }
 
     public function getPicture1(): ?string
