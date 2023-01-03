@@ -148,6 +148,7 @@ class UserCrudController extends AbstractCrudController
             ->setPageTitle(Crud::PAGE_INDEX, 'Liste des utilisateurs')
             ->setPageTitle(Crud::PAGE_NEW, 'Ajouter un utilisateur')
             ->setPageTitle(Crud::PAGE_EDIT, 'Modifier un utilisateur')
-            ->setPageTitle(Crud::PAGE_DETAIL, 'Détails d\'un utilisateur');
+            ->setPageTitle(Crud::PAGE_DETAIL, 'Détails d\'un utilisateur')
+            //->setEntityPermission('ROLE_ADMIN');
     }
 }
