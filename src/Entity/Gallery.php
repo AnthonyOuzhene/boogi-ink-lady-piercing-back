@@ -6,10 +6,12 @@ use App\Repository\GalleryRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=GalleryRepository::class)
  * @ApiResource
+ * @Vich\Uploadable
  */
 class Gallery
 {
