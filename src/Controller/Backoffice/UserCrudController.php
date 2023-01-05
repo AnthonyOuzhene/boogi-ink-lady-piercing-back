@@ -45,18 +45,21 @@ class UserCrudController extends AbstractCrudController
                         'message' => 'Votre mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial',
                     ]),
                 ],
-        ]),
-            
-            ChoiceField::new('roles',   'Rôle')
-            ->setChoices([
-                'Administrateur' => 'ROLE_ADMIN',
-                'Utilisateur' => 'ROLE_USER',
+            ]),
+
+            ChoiceField::new('roles',  'Rôles')
+                ->setChoices([
+                    'Utilisateur' => 'ROLE_USER',
+                    'Administrateur' => 'ROLE_ADMIN',
                 ])
-                ->allowMultipleChoices(
-                    true,
-                    'Vous devez choisir au moins un rôle',
-                )
-            ];
+                ->setFormTypeOptions([
+                    'expanded' => true,
+                    'multiple' => true,
+                ])
+                ->autocomplete()
+                ->renderAsBadges()
+                ->setHelp('Vous devez choisir au moins un rôle'),
+        ];
     }
 
     public function configureActions(Actions $actions): Actions
