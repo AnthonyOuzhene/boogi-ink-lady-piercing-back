@@ -1,5 +1,5 @@
 fm_elfinder:
-    assets_path: /assets # chemin des fichiers JS
+    assets_path: /assets # chemin des fichiers JS et CSS
     instances:
         default:
             locale: fr # Langue
