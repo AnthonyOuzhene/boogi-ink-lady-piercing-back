@@ -14,9 +14,11 @@
         "doctrine/orm": "^2.13",
         "easycorp/easyadmin-bundle": "^3.5",
         "friendsofsymfony/ckeditor-bundle": "^2.4",
+        "helios-ag/fm-elfinder-bundle": "^12.2",
         "nelmio/cors-bundle": "^2.2",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.14",
+        "studio-42/elfinder": "^2.1",
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
         "symfony/doctrine-messenger": "5.4.*",
@@ -79,7 +81,8 @@
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd",
-            "ckeditor:install": "symfony-cmd"
+            "ckeditor:install": "symfony-cmd",
+            "elfinder:install": "symfony-cmd"
         },
         "post-install-cmd": [
             "@auto-scripts"
