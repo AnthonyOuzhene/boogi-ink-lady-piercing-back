@@ -1,9 +1,10 @@
 fm_elfinder:
-    assets_path: /assets # chemin des fichiers JS
+    assets_path: /assets # chemin des fichiers JS et CSS
     instances:
         default:
             locale: fr # Langue
             editor: ckeditor # Editeur utilisé
+            relative_path: false # Chemin relatif
             fullscreen: true # Taille d'affichage
             theme: smoothness # Thème à utiliser
             connector:
