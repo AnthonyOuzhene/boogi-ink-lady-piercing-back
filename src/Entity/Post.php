@@ -43,35 +43,40 @@ class Post
      * @ORM\Column(type="datetime")
      */
     private $created_at;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user_id;
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    
     public function getTitle(): ?string
     {
         return $this->title;
     }
-
+    
     public function setTitle(string $title): self
     {
         $this->title = $title;
 
         return $this;
     }
-
+    
     public function getSummary(): ?string
     {
         return $this->summary;
     }
-
+    
     public function setSummary(string $summary): self
     {
         $this->summary = $summary;
@@ -123,6 +128,18 @@ class Post
     public function setUserId(?User $user_id): self
     {
         $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

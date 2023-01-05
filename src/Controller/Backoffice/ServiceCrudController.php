@@ -27,13 +27,17 @@ class ServiceCrudController extends AbstractCrudController
         return [
             //hideOnForm() permet de cacher l'ID sur le formulaire d'ajout et de modification
             IdField::new('id')->hideOnForm(),
-            TextField::new('name', "Nom du service"),
+            TextField::new('name', "Nom de la prestation"),
             IntegerField::new('price', "Prix"),
             TextareaField::new('description', "Description"),
             // hideOnIndex() permet de cacher la photo sur la liste des services
-            TextareaField::new('picture', "Photo du service")->hideOnIndex(),
-            AssociationField::new('activity_name'),
-            AssociationField::new('category_name'),
+            TextareaField::new('picture', "Photo de la prestation")->hideOnIndex(),
+            AssociationField::new('activity_name', "Activité")
+            ->setFormTypeOption('expanded', true),
+            AssociationField::new('category_name', "Catégorie")
+            ->setFormTypeOptions([
+                'expanded' => true,
+            ]),
         ];
     }
 

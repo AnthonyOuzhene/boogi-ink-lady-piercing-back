@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use ApiPlatform\Core\Annotation\ApiResource;
 
+
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ApiResource
@@ -21,6 +22,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+
     private $id;
 
     /**
@@ -35,9 +37,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
-    private $password;
+    private $password = null;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -127,9 +129,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
-        $this->password = $password;
+        if (!is_null($password)) {
+            $this->password = $password;
+        }
 
         return $this;
     }

@@ -9,15 +9,20 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
 
 class UserCrudController extends AbstractCrudController
 {
+
     public static function getEntityFqcn(): string
     {
         return User::class;
@@ -29,34 +34,72 @@ class UserCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('name', 'Nom'),
             EmailField::new('email', 'Email'),
-            TextField::new('password', 'Mot de passe')->onlyOnForms()->setFormType(PasswordType::class, [
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Entrez un mot de passe',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ min }} caractères',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                    new Regex([
-                        'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*(_|[^\w])).+$/',
-                        'message' => 'Votre mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial',
-                    ]),
-                ],
-        ]),
-            
-            ChoiceField::new('roles',   'Rôle')
-            ->setChoices([
-                'Administrateur' => 'ROLE_ADMIN',
-                'Utilisateur' => 'ROLE_USER',
+            // Options pour le champ email : désactiver le champ email lors de la modification
+            //EmailField::new('email')->onlyWhenUpdating()->setDisabled(),
+            //EmailField::new('email')->onlyWhenCreating(),
+
+            Field::new('password', 'Nouveau mot de passe')->onlyWhenCreating()->setRequired(true)
+                ->setFormType(RepeatedType::class)
+                ->setFormTypeOptions([
+                    'type' => PasswordType::class,
+                    'first_options' => ['label' => 'Mot de passe'],
+                    'second_options' => ['label' => 'Confirmation du mot de passe'],
+                    'error_bubbling' => true,
+                    'invalid_message' => 'Les mots de passe ne correspondent pas',
+
+                    'constraints' => [
+                        new Length([
+                            'min' => 6,
+                            'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
+                            // max length allowed by Symfony for security reasons
+                            'max' => 4096,
+                        ]),
+                        new Regex([
+                            'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+                            'message' => 'Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre',
+                        ]),
+                    ],
+                ]),
+
+            Field::new('password', 'Nouveau mot de passe')->onlyWhenUpdating()->setRequired(false)
+                ->setFormType(RepeatedType::class)
+                ->setFormTypeOptions([
+                    'type' => PasswordType::class,
+                    'first_options' => ['label' => 'Mot de passe'],
+                    'second_options' => ['label' => 'Confirmation du mot de passe'],
+                    'error_bubbling' => true,
+                    'invalid_message' => 'Les mots de passe ne correspondent pas',
+
+                    'constraints' => [
+                        new Length([
+                            'min' => 6,
+                            'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
+                            // max length allowed by Symfony for security reasons
+                            'max' => 4096,
+                        ]),
+                        new Regex([
+                            'pattern' => '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+                            'message' => 'Votre mot de passe doit contenir au moins une majuscule, une minuscule et un chiffre',
+                        ]),
+                    ],
+                ]),
+
+            ChoiceField::new('roles',  'Rôles')
+                ->setChoices([
+                    'Utilisateur' => 'ROLE_USER',
+                    'Administrateur' => 'ROLE_ADMIN',
                 ])
-                ->allowMultipleChoices(
-                    true,
-                    'Vous devez choisir au moins un rôle',
-                )
-            ];
+                
+                ->setFormTypeOptions([
+                    'expanded' => true,
+                    'multiple' => true,
+                ])
+                ->autocomplete()
+                ->renderAsBadges()
+                ->setHelp('Vous devez choisir au moins un rôle'),
+
+            FormField::addPanel('Changement du mot de passe')->setIcon('fa fa-key')->onlyWhenUpdating(),
+        ];
     }
 
     public function configureActions(Actions $actions): Actions
@@ -105,5 +148,8 @@ class UserCrudController extends AbstractCrudController
             ->setPageTitle(Crud::PAGE_NEW, 'Ajouter un utilisateur')
             ->setPageTitle(Crud::PAGE_EDIT, 'Modifier un utilisateur')
             ->setPageTitle(Crud::PAGE_DETAIL, 'Détails d\'un utilisateur');
+
+        // Permet d'afficher les résultats de la recherche selon le role de l'utilisateur connecté
+        //->setEntityPermission('ROLE_ADMIN');
     }
 }
