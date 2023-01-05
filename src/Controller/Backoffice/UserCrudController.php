@@ -89,7 +89,8 @@ class UserCrudController extends AbstractCrudController
                     'Utilisateur' => 'ROLE_USER',
                     'Administrateur' => 'ROLE_ADMIN',
                 ])
-                
+
+                ->setRequired(true)
                 ->setFormTypeOptions([
                     'expanded' => true,
                     'multiple' => true,
