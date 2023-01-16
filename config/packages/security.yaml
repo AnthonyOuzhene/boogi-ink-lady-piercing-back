@@ -52,7 +52,7 @@ security:
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/$, roles: PUBLIC_ACCESS } # Allows accessing the Swagger UI
-        - { path: ^/api/(.*), roles: ROLE_ADMIN }
+        - { path: ^/api/users, roles: ROLE_ADMIN }
 
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
