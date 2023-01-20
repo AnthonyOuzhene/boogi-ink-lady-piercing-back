@@ -6,11 +6,14 @@ use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\Context;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
  * @ApiResource(
- *    normalizationContext={"groups"={"comments"}},
+ *    normalizationContext={
+ *      "groups"={"comments"}
+ *   }, 
  * )
  */
 class Comment
@@ -54,7 +57,7 @@ class Comment
     /**
      * @ORM\Column(type="date")
      * @Groups("comments")
-     * 
+     * @Context(normalizationContext={"datetime_format"="d-m-Y"})
      */
     private $comment_date;
 
@@ -62,6 +65,8 @@ class Comment
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      * @Groups("comments")
+     * @Context(normalizationContext={"datetime_format"="d-m-Y"})
+     * 
      * 
      */
     private $user_id;
