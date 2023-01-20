@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=ActivityRepository::class)
  * @ApiResource
- * 
+ *  
  */
 
 class Activity
@@ -27,12 +27,13 @@ class Activity
 
     /**
      * @ORM\Column(type="string", length=255)
-     * 
+     * @Groups("comments")
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
      */
     private $brand_name;
 

@@ -5,10 +5,13 @@ namespace App\Entity;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
- * @ApiResource
+ * @ApiResource(
+ *    normalizationContext={"groups"={"comments"}},
+ * )
  */
 class Comment
 {
@@ -16,43 +19,58 @@ class Comment
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("comments")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups("comments")
+     * 
      */
     private $project_name;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups("comments")
+     * 
      */
     private $realisation_date;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("comments")
+     * 
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups("comments")
+     * 
      */
     private $message;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("comments")
+     * 
      */
     private $comment_date;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("comments")
+     * 
      */
     private $user_id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups("comments")
+     * 
      */
     private $activity_name;
 
