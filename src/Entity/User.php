@@ -18,6 +18,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
  * @ApiResource(
  *     normalizationContext={"groups"={"user:read"}},
  *     denormalizationContext={"groups"={"user:write"}}
+ * 
  * )
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -28,6 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="integer")
      * 
      * @Groups("user:read")
+     * @Groups("comments")
      */
 
     private $id;
@@ -62,7 +64,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups("comments")
-     * @Groups("user:write")
+     * @Groups({"user:read", "user:write"})
+     * 
      */
     private $name;
 
