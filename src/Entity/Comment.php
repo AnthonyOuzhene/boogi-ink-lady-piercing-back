@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Entity;
 
@@ -6,15 +6,20 @@ use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Serializer\Annotation\Context;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
+//@Groups({"comment:read", "comment:write"})
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
  * @ApiResource(
- *    normalizationContext={
- *      "groups"={"comments"}
- *   }, 
- * )
+ *     normalizationContext={"groups"={"comment:read", "comments"}},
+ *     denormalizationContext={"groups"={"comment:write", "comments"}}
+ * ),
+ * @ApiFilter(DateFilter::class, properties={"dateTime"})
  */
 class Comment
 {
@@ -22,62 +27,60 @@ class Comment
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("comments")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups("comments")
-     * 
+     * @Groups({"comment:read", "comment:write"})
      */
-    private $project_name;
+    private $projectName;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     * @Groups("comments")
+     * @Groups({"comment:read", "comment:write"})
      * 
      */
     private $realisation_date;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("comments")
+     * @Groups({"comment:read", "comment:write"})
      * 
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
-     * @Groups("comments")
+     * @Groups({"comment:read", "comment:write"})
      * 
      */
     private $message;
 
     /**
      * @ORM\Column(type="date")
-     * @Groups("comments")
-     * @Context(normalizationContext={"datetime_format"="d-m-Y"})
+     * @Groups({"comment:read", "comment:write"})
+     * 
+     * 
      */
-    private $comment_date;
+    private $commentDate;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("comments")
-     * @Context(normalizationContext={"datetime_format"="d-m-Y"})
-     * 
+     * @Groups({"comment:read", "comment:write"})
      * 
      */
-    private $user_id;
+    private $userId;
 
     /**
      * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("comments")
+     * @Groups("comment:write")
+     * 
      * 
      */
-    private $activity_name;
+    private $activityName;
 
     public function getId(): ?int
     {
@@ -86,12 +89,12 @@ class Comment
 
     public function getProjectName(): ?string
     {
-        return $this->project_name;
+        return $this->projectName;
     }
 
-    public function setProjectName(?string $project_name): self
+    public function setProjectName(?string $projectName): self
     {
-        $this->project_name = $project_name;
+        $this->projectName = $projectName;
 
         return $this;
     }
@@ -134,36 +137,36 @@ class Comment
 
     public function getCommentDate(): ?\DateTimeInterface
     {
-        return $this->comment_date;
+        return $this->commentDate;
     }
 
-    public function setCommentDate(\DateTimeInterface $comment_date): self
+    public function setCommentDate(\DateTimeInterface $commentDate): self
     {
-        $this->comment_date = $comment_date;
+        $this->commentDate = $commentDate;
 
         return $this;
     }
 
     public function getUserId(): ?User
     {
-        return $this->user_id;
+        return $this->userId;
     }
 
-    public function setUserId(?User $user_id): self
+    public function setUserId(?User $userId): self
     {
-        $this->user_id = $user_id;
+        $this->userId = $userId;
 
         return $this;
     }
 
     public function getActivityName(): ?Activity
     {
-        return $this->activity_name;
+        return $this->activityName;
     }
 
-    public function setActivityName(?Activity $activity_name): self
+    public function setActivityName(?Activity $activityName): self
     {
-        $this->activity_name = $activity_name;
+        $this->activityName = $activityName;
 
         return $this;
     }
