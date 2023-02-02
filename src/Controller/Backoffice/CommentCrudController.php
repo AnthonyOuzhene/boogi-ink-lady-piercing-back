@@ -25,13 +25,13 @@ class CommentCrudController extends AbstractCrudController
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('project_name', 'Nom du projet'),
-            AssociationField::new('activity_name', 'Nom de l\'activité')
+            AssociationField::new('activityName', 'Nom de l\'activité')
             ->setFormTypeOption('expanded', true),
             DateField::new('realisation_date', 'Date de réalisation'),
             TextField::new('title', 'Titre du commentaire'),
             TextareaField::new('message', 'Message du commentaire'),
             DateField::new('comment_date', 'Date du commentaire'),
-            AssociationField::new('user_id', 'Utilisateur')
+            AssociationField::new('userId', 'Utilisateur')
             ->setFormTypeOption('expanded', true),
         ];
     }

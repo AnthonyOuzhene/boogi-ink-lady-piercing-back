@@ -74,9 +74,9 @@ class Comment
     private $userId;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="comments"), 
      * @ORM\JoinColumn(nullable=false)
-     * @Groups("comment:write")
+     * @Groups({"comment:read", "comment:write"})
      * 
      * 
      */
